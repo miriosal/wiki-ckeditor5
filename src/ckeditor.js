@@ -60,10 +60,31 @@ import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 
 import imageIcon from '@ckeditor/ckeditor5-core/theme/icons/image.svg';
 import linkToPageIcon from './icons/link-to-page.svg';
-
+import cryptoContentIcon from './icons/cryptocontent.svg'
 export default class DecoupledEditor extends DecoupledEditorBase {}
 
 /* global WIKI */
+
+class CryptoContent extends Plugin {
+	init() {
+			const editor = this.editor;
+
+			editor.ui.componentFactory.add('cryptoContent', locale => {
+					const view = new ButtonView(locale);
+
+					view.set({
+							label: 'Crypto Content',
+							icon: cryptoContentIcon,
+							tooltip: true
+					});
+					view.on('execute', () => {
+							WIKI.$emit('editorCryptoContent');
+							WIKI.$store.set( 'editor/activeModal', 'editorCrytpContent' );
+					});
+					return view;
+			});
+	}
+}
 
 class LinkToPage extends Plugin {
 	init() {
@@ -160,7 +181,8 @@ DecoupledEditor.builtinPlugins = [
 	TodoList,
 	Underline,
 	UploadAdapter,
-	WordCount
+	WordCount,
+	CryptoContent
 ];
 
 // Editor configuration.
@@ -171,6 +193,8 @@ DecoupledEditor.defaultConfig = {
 			'|',
 			'fontsize',
 			'fontfamily',
+			'|',
+			'cryptoContent',
 			'|',
 			'bold',
 			'italic',
