@@ -1,5 +1,5 @@
 {
-  "name": "@requarks/ckeditor5",
+  "name": "@miriosal/ckeditor5",
   "version": "19.0.1",
   "description": "Custom CKEditor5 component build for Wiki.js",
   "keywords": [
